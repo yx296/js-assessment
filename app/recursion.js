@@ -40,8 +40,21 @@ exports.recursionAnswers = {
     return result;
   },
 
-  permute: function(arr) {
+  permute: function(arr, accum) {
+    var results = [];
+    var accum = accum || [];
 
+    if (arr.length === 0) {
+      return [accum];
+    }
+
+    for (var i = 0; i < arr.length; i++) {
+      var num = arr[i];
+      var remainingNums = arr.slice(0, i).concat(arr.slice(i+1));
+      results = results.concat(recursionAnswers.permute(remainingNums, accum.concat(num)))
+    }
+
+    return results;
   },
 
   fibonacci: function(n) {
